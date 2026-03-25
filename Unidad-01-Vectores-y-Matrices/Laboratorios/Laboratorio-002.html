@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: Espacio Columna y Combinaciones Lineales</title>
+    <!-- Tailwind CSS para el diseño -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Plotly.js para la gráfica 3D -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto space-y-6">
+        
+        <!-- Encabezado -->
+        <header class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-bold text-blue-800 flex items-center gap-2">
+                    <i data-lucide="monitor-play" class="w-7 h-7"></i>
+                    Mini-Laboratorio: El Píxel Defectuoso (Espacio Columna)
+                </h1>
+                <p class="text-slate-500 mt-1">Álgebra Lineal - Prof. Julián Andrés Rincón Penagos</p>
+            </div>
+            <div class="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg text-sm font-semibold border border-blue-100">
+                Objetivo: Crear color Azul (0, 0, 255)
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Panel de Control (Izquierda) -->
+            <div class="lg:col-span-1 space-y-6">
+                
+                <!-- Matriz y Multiplicación -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                    <h2 class="text-lg font-bold text-slate-800 mb-4 border-b pb-2">Sistema Matricial $Ax = b$</h2>
+                    
+                    <div class="text-sm text-slate-600 mb-4">
+                        Tenemos una matriz <b>A</b> formada por dos vectores columna (LED Rojo y LED Verde). Ajusta el vector <b>x</b> (intensidades) para ver el resultado.
+                    </div>
+
+                    <div class="flex items-center justify-center gap-4 font-mono text-lg bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <!-- Matriz A -->
+                        <div class="flex gap-2 text-center">
+                            <span class="text-3xl font-light opacity-50">[</span>
+                            <div class="flex flex-col">
+                                <span class="text-red-500 font-bold">255</span>
+                                <span>0</span>
+                                <span>0</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span>0</span>
+                                <span class="text-green-500 font-bold">255</span>
+                                <span>0</span>
+                            </div>
+                            <span class="text-3xl font-light opacity-50">]</span>
+                        </div>
+                        
+                        <!-- Vector x (Inputs) -->
+                        <div class="flex gap-1 text-center items-center">
+                            <span class="text-3xl font-light opacity-50">[</span>
+                            <div class="flex flex-col gap-2">
+                                <span id="valX1" class="text-red-600 font-bold">1.00</span>
+                                <span id="valX2" class="text-green-600 font-bold">1.00</span>
+                            </div>
+                            <span class="text-3xl font-light opacity-50">]</span>
+                        </div>
+                        
+                        <span>=</span>
+                        
+                        <!-- Vector b (Resultado) -->
+                        <div class="flex gap-2 text-center items-center">
+                            <span class="text-3xl font-light opacity-50">[</span>
+                            <div class="flex flex-col">
+                                <span id="resR" class="font-bold">255</span>
+                                <span id="resG" class="font-bold">255</span>
+                                <span id="resB" class="font-bold">0</span>
+                            </div>
+                            <span class="text-3xl font-light opacity-50">]</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controles -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                    <h2 class="text-lg font-bold text-slate-800 mb-4 border-b pb-2">Intensidad de los LEDs (Vector x)</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label class="flex justify-between text-sm font-bold text-slate-700 mb-2">
+                                <span>$x_1$ (Intensidad LED Rojo)</span>
+                                <span id="lblRojo" class="text-red-600">1.00</span>
+                            </label>
+                            <input type="range" id="sliderRojo" min="0" max="1" step="0.05" value="1" class="w-full accent-red-500">
+                        </div>
+                        
+                        <div>
+                            <label class="flex justify-between text-sm font-bold text-slate-700 mb-2">
+                                <span>$x_2$ (Intensidad LED Verde)</span>
+                                <span id="lblVerde" class="text-green-600">1.00</span>
+                            </label>
+                            <input type="range" id="sliderVerde" min="0" max="1" step="0.05" value="1" class="w-full accent-green-500">
+                        </div>
+                    </div>
+
+                    <!-- Visualizador de Color Resultante -->
+                    <div class="mt-8">
+                        <h3 class="text-sm font-bold text-slate-700 mb-2">Color Generado (Combinación Lineal)</h3>
+                        <div id="colorBox" class="w-full h-24 rounded-xl shadow-inner border border-slate-300 flex items-center justify-center text-white font-mono font-bold text-lg" style="background-color: rgb(255, 255, 0);">
+                            Amarillo
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- Gráfica 3D (Derecha) -->
+            <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col">
+                <h2 class="text-lg font-bold text-slate-800 mb-2">Visualización Geométrica: El Espacio Columna en $\mathbb{R}^3$</h2>
+                <p class="text-sm text-slate-500 mb-4">Cualquier combinación lineal que hagas con los deslizadores generará un vector que "vive" únicamente en el plano dibujado. Ese plano es el <b>Espacio Columna</b> de la matriz A.</p>
+                <div id="plot3d" class="flex-grow w-full min-h-[500px]"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Inicializar iconos
+        lucide.createIcons();
+
+        // Referencias a elementos del DOM
+        const sliderR = document.getElementById('sliderRojo');
+        const sliderG = document.getElementById('sliderVerde');
+        const lblR = document.getElementById('lblRojo');
+        const lblG = document.getElementById('lblVerde');
+        
+        const valX1 = document.getElementById('valX1');
+        const valX2 = document.getElementById('valX2');
+        const resR = document.getElementById('resR');
+        const resG = document.getElementById('resG');
+        const resB = document.getElementById('resB');
+        const colorBox = document.getElementById('colorBox');
+
+        // Vectores base (Columnas de A)
+        const v1 = [255, 0, 0]; // Rojo
+        const v2 = [0, 255, 0]; // Verde
+
+        function updateMath() {
+            const x1 = parseFloat(sliderR.value);
+            const x2 = parseFloat(sliderG.value);
+
+            // Actualizar etiquetas
+            lblR.innerText = x1.toFixed(2);
+            lblG.innerText = x2.toFixed(2);
+            valX1.innerText = x1.toFixed(2);
+            valX2.innerText = x2.toFixed(2);
+
+            // Calcular combinación lineal
+            const r = Math.round(x1 * v1[0] + x2 * v2[0]);
+            const g = Math.round(x1 * v1[1] + x2 * v2[1]);
+            const b = 0; // Porque v1 y v2 tienen 0 en azul
+
+            // Actualizar vector resultante
+            resR.innerText = r;
+            resG.innerText = g;
+            resB.innerText = b;
+
+            // Actualizar caja de color
+            colorBox.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+            
+            // Determinar nombre del color aprox
+            if(r > 200 && g > 200) colorBox.innerText = "Amarillo";
+            else if(r > 200 && g < 50) colorBox.innerText = "Rojo";
+            else if(r < 50 && g > 200) colorBox.innerText = "Verde";
+            else if(r > 100 && g > 50) colorBox.innerText = "Naranja";
+            else if(r === 0 && g === 0) colorBox.innerText = "Negro (Apagado)";
+            else colorBox.innerText = `RGB(${r}, ${g}, ${b})`;
+
+            updatePlot(x1, x2, r, g, b);
+        }
+
+        function updatePlot(x1, x2, r, g, b) {
+            // Vector Rojo (v1)
+            const traceV1 = {
+                type: 'scatter3d',
+                mode: 'lines+markers+text',
+                x: [0, 255], y: [0, 0], z: [0, 0],
+                line: {width: 6, color: 'red'},
+                marker: {size: 4, color: 'red'},
+                text: ['', 'v1 (Rojo)'], textposition: 'top center',
+                name: 'Columna 1'
+            };
+
+            // Vector Verde (v2)
+            const traceV2 = {
+                type: 'scatter3d',
+                mode: 'lines+markers+text',
+                x: [0, 0], y: [0, 255], z: [0, 0],
+                line: {width: 6, color: 'green'},
+                marker: {size: 4, color: 'green'},
+                text: ['', 'v2 (Verde)'], textposition: 'top center',
+                name: 'Columna 2'
+            };
+
+            // Vector Resultante (b)
+            const traceRes = {
+                type: 'scatter3d',
+                mode: 'lines+markers',
+                x: [0, r], y: [0, g], z: [0, b],
+                line: {width: 8, color: `rgb(${r},${g},${b})`},
+                marker: {size: 6, color: `rgb(${r},${g},${b})`},
+                name: 'Combinación Lineal (b)'
+            };
+
+            // Plano que representa el espacio columna (z=0)
+            const tracePlane = {
+                type: 'mesh3d',
+                x: [0, 255, 255, 0],
+                y: [0, 0, 255, 255],
+                z: [0, 0, 0, 0],
+                opacity: 0.2,
+                color: 'gray',
+                name: 'Espacio Columna C(A)'
+            };
+
+            // El objetivo inalcanzable: Azul
+            const traceBlue = {
+                type: 'scatter3d',
+                mode: 'lines+markers+text',
+                x: [0, 0], y: [0, 0], z: [0, 255],
+                line: {width: 3, color: 'blue', dash: 'dash'},
+                marker: {size: 4, color: 'blue'},
+                text: ['', 'Meta: Azul (Fuera del Espacio)'],
+                name: 'Vector Objetivo'
+            };
+
+            const layout = {
+                margin: {l: 0, r: 0, b: 0, t: 0},
+                scene: {
+                    xaxis: {title: 'Canal Rojo (X)', range: [0, 260]},
+                    yaxis: {title: 'Canal Verde (Y)', range: [0, 260]},
+                    zaxis: {title: 'Canal Azul (Z)', range: [0, 260]},
+                    camera: { eye: {x: 1.5, y: 1.5, z: 1.2} }
+                },
+                showlegend: false
+            };
+
+            Plotly.react('plot3d', [traceV1, traceV2, traceRes, tracePlane, traceBlue], layout);
+        }
+
+        // Listeners
+        sliderR.addEventListener('input', updateMath);
+        sliderG.addEventListener('input', updateMath);
+
+        // Inicializar
+        updateMath();
+    </script>
+</body>
+</html>

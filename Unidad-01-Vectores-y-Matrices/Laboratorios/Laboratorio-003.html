@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 003 - Similitud de Señales y Producto Punto</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js para las gráficas de señales -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Configuración de Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        uq: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 700: '#15803d', 900: '#14532d' },
+                        tech: { 50: '#eff6ff', 100: '#dbeafe', 600: '#2563eb', 800: '#1e40af' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen p-4 md:p-6 flex flex-col h-screen">
+
+    <!-- Encabezado -->
+    <header class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 mb-4 flex flex-col md:flex-row justify-between items-center gap-4 flex-shrink-0">
+        <div>
+            <h1 class="text-xl font-bold text-tech-800 flex items-center gap-2">
+                <i data-lucide="activity" class="w-6 h-6"></i>
+                Laboratorio 003: Similitud del Coseno y Producto Punto
+            </h1>
+            <p class="text-slate-500 text-sm mt-1">Álgebra Lineal en Procesamiento de Señales | Prof. Julián Andrés Rincón Penagos</p>
+        </div>
+        <div class="bg-tech-50 text-tech-700 px-4 py-2 rounded-lg text-sm font-semibold border border-tech-200 shadow-sm flex items-center gap-2">
+            <i data-lucide="target" class="w-4 h-4"></i> Reto: Lograr 100% de Similitud
+        </div>
+    </header>
+
+    <main class="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-grow min-h-0">
+        
+        <!-- Columna 1: Controles de Señal (4/12) -->
+        <div class="lg:col-span-4 flex flex-col gap-4 min-h-0">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-col h-full">
+                <h2 class="text-sm font-bold text-slate-800 border-b pb-2 mb-4 flex items-center gap-2 flex-shrink-0">
+                    <i data-lucide="sliders" class="w-4 h-4"></i> Ajuste de Señal B (Vector en $\mathbb{R}^5$)
+                </h2>
+                <p class="text-xs text-slate-500 mb-4 flex-shrink-0">Modifica los voltajes discretos (componentes) de la Señal B para intentar igualar o hacer ortogonal a la Señal A.</p>
+                
+                <div class="space-y-5 flex-grow overflow-y-auto pr-2" id="sliders-container">
+                    <!-- Sliders generados por JS -->
+                </div>
+
+                <div class="mt-4 pt-4 border-t flex gap-2 flex-shrink-0">
+                    <button onclick="setOrthogonal()" class="flex-1 bg-amber-100 hover:bg-amber-200 text-amber-800 p-2 rounded-lg text-xs font-bold transition-colors">
+                        Forzar Ortogonalidad
+                    </button>
+                    <button onclick="setParallel()" class="flex-1 bg-uq-100 hover:bg-uq-200 text-uq-800 p-2 rounded-lg text-xs font-bold transition-colors">
+                        Copiar Señal A
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna 2: Gráfica y Cálculos (8/12) -->
+        <div class="lg:col-span-8 flex flex-col gap-4 min-h-0">
+            
+            <!-- Panel de Resultados Matemáticos -->
+            <div class="bg-slate-900 rounded-2xl shadow-sm border border-slate-800 p-5 flex-shrink-0 text-white">
+                <h2 class="text-sm font-bold text-slate-300 border-b border-slate-700 pb-2 mb-4 flex items-center gap-2">
+                    <i data-lucide="calculator" class="w-4 h-4"></i> Cálculos en Tiempo Real
+                </h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center font-mono">
+                    <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                        <div class="text-xs text-slate-400 mb-1">Producto Punto ($A \cdot B$)</div>
+                        <div id="dotProduct" class="text-xl font-bold text-tech-400">0.00</div>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                        <div class="text-xs text-slate-400 mb-1">Longitud $\|A\|$</div>
+                        <div id="normA" class="text-xl font-bold text-slate-200">0.00</div>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                        <div class="text-xs text-slate-400 mb-1">Longitud $\|B\|$</div>
+                        <div id="normB" class="text-xl font-bold text-slate-200">0.00</div>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-xl border border-tech-500 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-tech-900 opacity-20"></div>
+                        <div class="text-xs text-tech-300 mb-1 relative z-10">Similitud $\cos(\theta)$</div>
+                        <div id="cosineSim" class="text-2xl font-black text-tech-400 relative z-10">0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráfica de Señales -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-col flex-grow min-h-0">
+                <h2 class="text-sm font-bold text-slate-800 mb-2 flex items-center gap-2 flex-shrink-0">
+                    <i data-lucide="bar-chart-2" class="w-4 h-4"></i> Osciloscopio Digital (Vectores $\mathbb{R}^5$)
+                </h2>
+                <div class="flex-grow relative w-full h-full min-h-[250px]">
+                    <canvas id="signalChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        // Vectores iniciales (Señales de 5 componentes / muestras)
+        const vectorA = [4, 2, -3, 1, 5]; // Señal de referencia fija
+        let vectorB = [1, 1, 1, 1, 1];    // Señal editable por el usuario
+
+        let chartInstance = null;
+
+        // Generar UI de sliders dinámicamente
+        const container = document.getElementById('sliders-container');
+        for (let i = 0; i < 5; i++) {
+            container.innerHTML += `
+                <div>
+                    <label class="flex justify-between text-xs font-bold text-slate-600 mb-1">
+                        <span>$b_${i+1}$ (Tiempo ${i+1})</span>
+                        <span id="lbl-b${i}" class="text-tech-600 font-mono">${vectorB[i].toFixed(1)}V</span>
+                    </label>
+                    <input type="range" id="slider-b${i}" min="-5" max="5" step="0.5" value="${vectorB[i]}" 
+                           class="w-full accent-tech-500" oninput="updateVectorB(${i}, this.value)">
+                </div>
+            `;
+        }
+
+        function updateVectorB(index, value) {
+            vectorB[index] = parseFloat(value);
+            document.getElementById(`lbl-b${index}`).innerText = vectorB[index].toFixed(1) + 'V';
+            calculateMath();
+            updateChart();
+        }
+
+        // Botones de ayuda
+        function setOrthogonal() {
+            // Un vector ortogonal simple a [4, 2, -3, 1, 5] podría ser [-2, 4, 0, 0, 0] ya que -8 + 8 = 0
+            const ortho = [-2, 4, 0, 0, 0];
+            updateAllSliders(ortho);
+        }
+
+        function setParallel() {
+            // Mismo vector, doble amplitud
+            const parallel = vectorA.map(v => v * 1); 
+            updateAllSliders(parallel);
+        }
+
+        function updateAllSliders(newValues) {
+            vectorB = [...newValues];
+            for (let i = 0; i < 5; i++) {
+                document.getElementById(`slider-b${i}`).value = vectorB[i];
+                document.getElementById(`lbl-b${i}`).innerText = vectorB[i].toFixed(1) + 'V';
+            }
+            calculateMath();
+            updateChart();
+        }
+
+        // Lógica Matemática de Álgebra Lineal
+        function calculateMath() {
+            let dotProduct = 0;
+            let sumSqA = 0;
+            let sumSqB = 0;
+
+            for (let i = 0; i < 5; i++) {
+                dotProduct += vectorA[i] * vectorB[i];
+                sumSqA += vectorA[i] * vectorA[i];
+                sumSqB += vectorB[i] * vectorB[i];
+            }
+
+            const normA = Math.sqrt(sumSqA);
+            const normB = Math.sqrt(sumSqB);
+            
+            // Similitud del Coseno = (A dot B) / (|A| * |B|)
+            let cosine = 0;
+            if (normA > 0 && normB > 0) {
+                cosine = dotProduct / (normA * normB);
+            }
+
+            // Actualizar UI
+            document.getElementById('dotProduct').innerText = dotProduct.toFixed(2);
+            document.getElementById('normA').innerText = normA.toFixed(2);
+            document.getElementById('normB').innerText = normB.toFixed(2);
+            
+            const simPercentage = (cosine * 100).toFixed(1);
+            const simEl = document.getElementById('cosineSim');
+            simEl.innerText = `${simPercentage}%`;
+            
+            // Cambiar color según similitud
+            if(cosine > 0.95) simEl.className = "text-2xl font-black text-uq-400 relative z-10";
+            else if(Math.abs(cosine) < 0.05) simEl.className = "text-2xl font-black text-amber-400 relative z-10"; // Ortogonal
+            else simEl.className = "text-2xl font-black text-tech-400 relative z-10";
+        }
+
+        // Gráfica con Chart.js
+        function updateChart() {
+            const ctx = document.getElementById('signalChart').getContext('2d');
+            const labels = ['t=1', 't=2', 't=3', 't=4', 't=5'];
+
+            if (chartInstance) {
+                chartInstance.data.datasets[1].data = vectorB;
+                chartInstance.update();
+                return;
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Señal A (Referencia)',
+                            data: vectorA,
+                            borderColor: 'rgba(100, 116, 139, 1)', // Slate 500
+                            backgroundColor: 'rgba(100, 116, 139, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 5
+                        },
+                        {
+                            label: 'Señal B (Entrada)',
+                            data: vectorB,
+                            borderColor: 'rgba(37, 99, 235, 1)', // Tech 600
+                            backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                            borderWidth: 3,
+                            borderDash: [5, 5],
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 6,
+                            pointBackgroundColor: 'rgba(37, 99, 235, 1)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            min: -6, max: 6,
+                            title: { display: true, text: 'Voltaje (V)', font: {weight: 'bold'} }
+                        },
+                        x: {
+                            title: { display: true, text: 'Muestras Discretas', font: {weight: 'bold'} }
+                        }
+                    },
+                    animation: { duration: 300 } // Animación rápida para los sliders
+                }
+            });
+        }
+
+        // Inicializar
+        calculateMath();
+        updateChart();
+    </script>
+</body>
+</html>

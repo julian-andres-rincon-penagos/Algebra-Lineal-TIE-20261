@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 001 - Introducción al Álgebra Lineal</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js para la gráfica de dispersión y la frontera -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Configuración de Tailwind (Colores del Laboratorio de Espacios Columna) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        uq: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 700: '#15803d', 900: '#14532d' },
+                        tech: { 50: '#eff6ff', 100: '#dbeafe', 600: '#2563eb', 800: '#1e40af' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen p-4 md:p-6 flex flex-col h-screen">
+
+    <!-- Encabezado -->
+    <header class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 mb-4 flex flex-col md:flex-row justify-between items-center gap-4 flex-shrink-0">
+        <div>
+            <h1 class="text-xl font-bold text-tech-800 flex items-center gap-2">
+                <i data-lucide="cpu" class="w-6 h-6"></i>
+                Laboratorio 001 - Introducción al Álgebra Lineal
+            </h1>
+            <p class="text-slate-500 text-sm mt-1">Simulación del Perceptrón Simple | Prof. Julián Andrés Rincón Penagos</p>
+        </div>
+        <div class="flex gap-2">
+            <button onclick="limpiarTodo()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center gap-2 border border-slate-200">
+                <i data-lucide="trash-2" class="w-4 h-4"></i> Limpiar Datos
+            </button>
+            <button onclick="procesarDatos()" class="bg-tech-600 hover:bg-tech-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center gap-2 shadow-sm">
+                <i data-lucide="play" class="w-4 h-4"></i> Procesar Datos
+            </button>
+        </div>
+    </header>
+
+    <!-- Contenedor Principal Grid -->
+    <main class="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-grow min-h-0">
+        
+        <!-- Columna 1: Controles y Generador (3/12) -->
+        <div class="lg:col-span-3 flex flex-col gap-4 min-h-0">
+            <!-- Configuración del Perceptrón -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex-shrink-0">
+                <h2 class="text-sm font-bold text-slate-800 border-b pb-2 mb-4 flex items-center gap-2">
+                    <i data-lucide="settings-2" class="w-4 h-4"></i> Configuración
+                </h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Importancia del Peso ($w_1$)</label>
+                        <input type="number" id="edWeightPeso" value="0.9" step="0.1" class="w-full border-slate-300 rounded-lg p-2 border focus:ring-2 focus:ring-tech-500 outline-none text-sm font-mono">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Importancia del Color ($w_2$)</label>
+                        <input type="number" id="edWeightColor" value="0.1" step="0.05" class="w-full border-slate-300 rounded-lg p-2 border focus:ring-2 focus:ring-tech-500 outline-none text-sm font-mono">
+                    </div>
+                    <div class="border-l-4 border-l-red-500 pl-3">
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Umbral de Decisión</label>
+                        <input type="number" id="edUmbral" value="90" step="1" class="w-full border-slate-300 rounded-lg p-2 border focus:ring-2 focus:ring-red-500 outline-none text-sm font-mono font-bold text-red-600">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Generador de Datos -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex-grow flex flex-col overflow-hidden">
+                <h2 class="text-sm font-bold text-slate-800 border-b pb-2 mb-4 flex items-center gap-2 flex-shrink-0">
+                    <i data-lucide="plus-circle" class="w-4 h-4"></i> Generador de Datos
+                </h2>
+                <p class="text-xs text-slate-500 mb-4 flex-shrink-0">Haz clic en los cuadros para simular la lectura de los sensores de la cámara y la báscula.</p>
+                
+                <div class="flex-grow flex flex-col gap-3">
+                    <!-- Botón Naranjas -->
+                    <button onclick="generarDato('Naranja')" class="flex-1 rounded-xl relative overflow-hidden group border-2 border-orange-200 hover:border-orange-500 transition-all flex items-center justify-center bg-gradient-to-br from-orange-100 to-orange-200">
+                        <div class="absolute inset-0 bg-orange-500 opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                        <div class="text-center">
+                            <i data-lucide="scan" class="w-8 h-8 text-orange-600 mx-auto mb-1"></i>
+                            <span class="font-bold text-orange-800 text-sm">Escanear Naranja</span>
+                        </div>
+                    </button>
+                    <!-- Botón Limones -->
+                    <button onclick="generarDato('Limon')" class="flex-1 rounded-xl relative overflow-hidden group border-2 border-lime-200 hover:border-lime-500 transition-all flex items-center justify-center bg-gradient-to-br from-lime-100 to-lime-200">
+                        <div class="absolute inset-0 bg-lime-500 opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                        <div class="text-center">
+                            <i data-lucide="scan" class="w-8 h-8 text-lime-700 mx-auto mb-1"></i>
+                            <span class="font-bold text-lime-800 text-sm">Escanear Limón</span>
+                        </div>
+                    </button>
+                </div>
+                
+                <button onclick="generarLoteAutomatico()" class="mt-4 w-full bg-slate-800 hover:bg-slate-700 text-white p-2 rounded-lg text-xs font-bold transition-colors">
+                    Generar Lote Automático (30 Datos)
+                </button>
+            </div>
+        </div>
+
+        <!-- Columna 2: Tabla y Consola (4/12) -->
+        <div class="lg:col-span-4 flex flex-col gap-4 min-h-0">
+            <!-- Tabla de Datos (lvDatos en Delphi) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col h-1/2 min-h-0">
+                <div class="p-3 border-b flex justify-between items-center bg-slate-50 rounded-t-2xl">
+                    <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                        <i data-lucide="table-2" class="w-4 h-4"></i> Memoria de Datos
+                    </h2>
+                    <span id="contadorDatos" class="text-xs bg-slate-200 px-2 py-1 rounded font-bold text-slate-600">0 Registros</span>
+                </div>
+                <div class="overflow-y-auto flex-grow p-0">
+                    <table class="w-full text-xs text-left">
+                        <thead class="bg-slate-100 text-slate-600 sticky top-0 shadow-sm">
+                            <tr>
+                                <th class="p-2 pl-4">No.</th>
+                                <th class="p-2">Peso (g)</th>
+                                <th class="p-2">Color (DC)</th>
+                                <th class="p-2 text-center">IA</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lvDatos" class="divide-y divide-slate-100 font-mono">
+                            <!-- Datos inyectados por JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Consola de Cálculos (seConsola en Delphi) -->
+            <div class="bg-slate-900 rounded-2xl shadow-sm border border-slate-800 flex flex-col h-1/2 min-h-0">
+                <div class="p-3 border-b border-slate-700 flex justify-between items-center bg-slate-800 rounded-t-2xl">
+                    <h2 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+                        <i data-lucide="terminal" class="w-4 h-4"></i> Consola de Cálculos
+                    </h2>
+                </div>
+                <div class="overflow-y-auto flex-grow p-4 font-mono text-xs text-green-400" id="seConsola">
+                    <div>; Perceptron Simple</div>
+                    <br>
+                    <div>[Explicación]</div>
+                    <div>Procedimiento = 'Importe los datos al perceptron para ver el gráfico y los cálculos'</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna 3: Gráfico (5/12) -->
+        <div class="lg:col-span-5 bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-col min-h-0">
+            <h2 class="text-sm font-bold text-slate-800 mb-2 flex items-center gap-2 flex-shrink-0">
+                <i data-lucide="line-chart" class="w-4 h-4"></i> Espacio Vectorial y Clasificación
+            </h2>
+            <div class="flex-grow relative w-full h-full min-h-[300px]">
+                <canvas id="Chart1"></canvas>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        // Estructuras de datos equivalentes al Delphi
+        let datos = [];
+        let chartInstance = null;
+        let consoleOutput = document.getElementById('seConsola');
+        let tableBody = document.getElementById('lvDatos');
+        let contadorBadge = document.getElementById('contadorDatos');
+
+        // Función para escribir en la consola (Equivalente a seConsola.Lines.Add)
+        function logConsole(text, isHeader = false) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            if(isHeader) div.className = "text-yellow-400 font-bold mt-2";
+            consoleOutput.appendChild(div);
+            // Auto scroll al final
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+
+        // Función para limpiar la consola y gráficos (sbLimpiarConsolaClick)
+        function limpiarTodo() {
+            datos = [];
+            actualizarTabla();
+            
+            consoleOutput.innerHTML = '';
+            logConsole('; Perceptron Simple');
+            logConsole('');
+            logConsole('[Explicación]');
+            logConsole("Procedimiento = 'Memoria borrada. Inserte nuevos datos.'");
+            
+            if (chartInstance) {
+                chartInstance.data.datasets.forEach(dataset => dataset.data = []);
+                chartInstance.update();
+            }
+        }
+
+        // Función de generación aleatoria (imgNaranjaMouseDown / imgLimonesMouseDown)
+        function generarDato(tipoOrigen) {
+            let r, g, b, peso;
+
+            if (tipoOrigen === 'Naranja') {
+                // Naranja: Naranja/Rojizo. Delphi: Random(100) + 100
+                peso = Math.floor(Math.random() * 100) + 100;
+                r = Math.floor(Math.random() * 55) + 200; // 200-255
+                g = Math.floor(Math.random() * 50) + 100; // 100-150
+                b = 0;
+            } else {
+                // Limón: Verdoso. Delphi: Random(50) + 20
+                peso = Math.floor(Math.random() * 50) + 20;
+                r = Math.floor(Math.random() * 50) + 50;  // 50-100
+                g = Math.floor(Math.random() * 55) + 200; // 200-255
+                b = 0;
+            }
+
+            // DC = (r - g) / 255
+            let colorDC = (r - g) / 255;
+
+            datos.push({
+                peso: peso,
+                color: colorDC,
+                origen: tipoOrigen,
+                clasificacion: null // Se llena al procesar
+            });
+
+            actualizarTabla();
+        }
+
+        function generarLoteAutomatico() {
+            for(let i=0; i<15; i++) generarDato('Naranja');
+            for(let i=0; i<15; i++) generarDato('Limon');
+            logConsole(">> Lote de 30 datos generado automáticamente.", true);
+        }
+
+        function actualizarTabla() {
+            tableBody.innerHTML = '';
+            contadorBadge.textContent = `${datos.length} Registros`;
+
+            datos.forEach((d, index) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition-colors";
+                
+                // Icono de la clasificación
+                let iconHtml = '-';
+                if (d.clasificacion === 1) iconHtml = '<div class="w-3 h-3 rounded-full bg-orange-500 mx-auto shadow-sm"></div>';
+                if (d.clasificacion === 0) iconHtml = '<div class="w-3 h-3 rounded-full bg-lime-500 mx-auto shadow-sm"></div>';
+
+                tr.innerHTML = `
+                    <td class="p-2 pl-4 text-slate-400">${index + 1}</td>
+                    <td class="p-2 font-bold text-slate-700">${d.peso}</td>
+                    <td class="p-2">${d.color.toFixed(2)}</td>
+                    <td class="p-2 text-center align-middle">${iconHtml}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+            
+            // Auto scroll tabla
+            tableBody.parentElement.parentElement.scrollTop = tableBody.parentElement.parentElement.scrollHeight;
+        }
+
+        // Lógica matemática (TFPerceptron.perceptron)
+        function perceptron(peso, color, wPeso, wColor, umbral) {
+            let cl = (wPeso * peso) + (wColor * color);
+            return (cl < umbral) ? 0 : 1;
+        }
+
+        // Equivalente a TFPerceptron.procesarDatos
+        function procesarDatos() {
+            if (datos.length === 0) {
+                alert("Por favor, genere datos primero.");
+                return;
+            }
+
+            const wPeso = parseFloat(document.getElementById('edWeightPeso').value);
+            const wColor = parseFloat(document.getElementById('edWeightColor').value);
+            const umbral = parseFloat(document.getElementById('edUmbral').value);
+
+            consoleOutput.innerHTML = '';
+            logConsole('');
+            logConsole('; Cálculos del Perceptron Simple', true);
+            logConsole('');
+            logConsole('[Cálculos]');
+            logConsole('');
+
+            let sNaranjas = [];
+            let sLimones = [];
+
+            datos.forEach((d, index) => {
+                // RD = wPeso * peso + wColor * color
+                let rd = (wPeso * d.peso) + (wColor * d.color);
+                
+                // Salida de consola idéntica a tu código Delphi
+                // Dato1 = 0.9(54)+0.1(-0.15) = 48.585
+                logConsole(`Dato${index + 1} = ${wPeso}(${d.peso}) + ${wColor}(${d.color.toFixed(2)}) = ${rd.toFixed(3)}`);
+
+                d.clasificacion = perceptron(d.peso, d.color, wPeso, wColor, umbral);
+
+                if (d.clasificacion === 0) {
+                    sLimones.push({x: d.peso, y: d.color});
+                } else {
+                    sNaranjas.push({x: d.peso, y: d.color});
+                }
+            });
+
+            actualizarTabla();
+            graficar(sNaranjas, sLimones, wPeso, wColor, umbral);
+        }
+
+        // Gráfica usando Chart.js
+        function graficar(naranjas, limones, wPeso, wColor, umbral) {
+            const ctx = document.getElementById('Chart1').getContext('2d');
+
+            // Calcular puntos para sFrontera (Línea de decisión)
+            // Despejando X: X = (Umbral - wColor * Y) / wPeso
+            let frontera = [];
+            if (wPeso !== 0) {
+                let y1 = -1;
+                let x1 = (umbral - wColor * y1) / wPeso;
+                let y2 = 1;
+                let x2 = (umbral - wColor * y2) / wPeso;
+                frontera = [{x: x1, y: y1}, {x: x2, y: y2}];
+            } else {
+                // Evitar división por cero si el profe pone peso 0
+                let y_val = umbral / wColor;
+                frontera = [{x: 0, y: y_val}, {x: 250, y: y_val}];
+            }
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: 'sFrontera',
+                            data: frontera,
+                            type: 'line',
+                            borderColor: 'rgba(239, 68, 68, 1)', // Red-500
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 0,
+                            fill: false
+                        },
+                        {
+                            label: 'sNaranjas',
+                            data: naranjas,
+                            backgroundColor: 'rgba(249, 115, 22, 0.9)', // Orange-500
+                            borderColor: 'rgba(154, 52, 18, 1)',
+                            pointRadius: 6,
+                            pointHoverRadius: 8
+                        },
+                        {
+                            label: 'sLimones',
+                            data: limones,
+                            backgroundColor: 'rgba(132, 204, 22, 0.9)', // Lime-500
+                            borderColor: 'rgba(77, 124, 15, 1)',
+                            pointRadius: 6,
+                            pointHoverRadius: 8
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 800,
+                        easing: 'easeOutQuart'
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Peso (Eje X)', font: {weight: 'bold', family: 'monospace'} },
+                            min: 0,
+                            max: 220
+                        },
+                        y: {
+                            title: { display: true, text: 'Color (Eje Y)', font: {weight: 'bold', family: 'monospace'} },
+                            min: -0.6,
+                            max: 0.6
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,714 @@
+#LyX 2.4 created this file. For more info see https://www.lyx.org/
+\lyxformat 620
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass Plantilla
+\begin_preamble
+\usepackage{Plantilla}
+\end_preamble
+\use_default_options true
+\begin_modules
+multicol
+\end_modules
+\maintain_unincluded_children no
+\language spanish
+\language_package default
+\inputencoding auto-legacy
+\fontencoding auto
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_roman_osf false
+\font_sans_osf false
+\font_typewriter_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement H
+\float_alignment class
+\paperfontsize 12
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize custom
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_formatted_ref 0
+\use_minted 0
+\use_lineno 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\paperwidth 30cm
+\paperheight 39cm
+\leftmargin 3cm
+\topmargin 5cm
+\rightmargin 3cm
+\bottommargin 3cm
+\secnumdepth 5
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tablestyle default
+\bullet 0 2 1 -1
+\bullet 1 2 14 -1
+\bullet 2 2 16 -1
+\bullet 3 2 34 -1
+\tracking_changes false
+\output_changes false
+\change_bars false
+\postpone_fragile_content false
+\html_math_output 3
+\html_css_as_file 0
+\html_be_strict false
+\docbook_table_output 0
+\docbook_mathml_prefix 1
+\end_header
+
+\begin_body
+
+\begin_layout Titulo
+Área de un Triángulo
+\end_layout
+
+\begin_layout Autores
+Julián Andrés Rincón Penagos
+\end_layout
+
+\begin_layout AutoresCorto
+Julián Andrés Rincón Penagos
+\end_layout
+
+\begin_layout Correo
+jarinconapps@gmail.com
+\end_layout
+
+\begin_layout Materia
+Álgebra Lineal
+\end_layout
+
+\begin_layout Institucion
+Universidad del Quindío
+\end_layout
+
+\begin_layout Fecha
+2026
+\end_layout
+
+\begin_layout TipoCapitulo
+Clase
+\end_layout
+
+\begin_layout NumeroArticulo
+9
+\end_layout
+
+\begin_layout Capitulo
+Regla de Cramer
+\end_layout
+
+\begin_layout Seccion
+Ejercicio
+\end_layout
+
+\begin_layout Standard
+Tenemos tres antenas de una compañia de telecomunicaciones en los puntos de una ciudad 
+\begin_inset Formula $A_{1}\left(1,1\right)$
+\end_inset
+
+;
+ 
+\begin_inset Formula $A_{2}\left(7,3\right)$
+\end_inset
+
+ y 
+\begin_inset Formula $A_{3}\left(5,10\right)$
+\end_inset
+
+.
+ Considere todo en Kilómetros.
+ Necesitamos calcular el centro (punto donde equidistan las tres antenas).
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subseccion*
+Solución
+\end_layout
+
+\begin_layout Standard
+Para resolver este problema debemos saber que estos puntos hacen parte de una circunferencia que tiene la forma general 
+\begin_inset Formula 
+\[
+x^{2}+y^{2}+Cx+Dy+E=0
+\]
+
+\end_inset
+
+ entonces al reemplazar cada punto en la ecuación tenemos 
+\end_layout
+
+\begin_layout Itemize
+Para 
+\begin_inset Formula $A_{1}\left(1,1\right)$
+\end_inset
+
+ tenemos 
+\begin_inset Formula 
+\begin{align*}
+\left(1\right)^{2}+\left(1\right)^{2}+C\left(1\right)+D\left(1\right)+E & =0\\
+2+C+D+E & =0\\
+C+D+E & =-2
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Para 
+\begin_inset Formula $A_{2}\left(7,3\right)$
+\end_inset
+
+ tenemos 
+\begin_inset Formula 
+\begin{align*}
+\left(7\right)^{2}+\left(3\right)^{2}+C\left(7\right)+D\left(3\right)+E & =0\\
+49+9+7C+3D+E & =0\\
+7C+3D+E & =-58
+\end{align*}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+Para 
+\begin_inset Formula $A_{3}\left(5,10\right)$
+\end_inset
+
+ tenemos 
+\begin_inset Formula 
+\begin{align*}
+\left(5\right)^{2}+\left(10\right)^{2}+C\left(5\right)+D\left(10\right)+E & =0\\
+25+100+5C+10D+E & =0\\
+5C+10D+E & =-125
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Con estas tres ecuaciones armamos un sistema de ecuaciones 
+\begin_inset Formula 
+\[
+S=\begin{cases}
+C+D+E & =-2\\
+7C+3D+E & =-58\\
+5C+10D+E & =-125
+\end{cases}
+\]
+
+\end_inset
+
+ Para resolver el sistema vamos a usar la regla de Cramer,
+ para ello vamos a calcular el determinante del sistema y de cada variable.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\det\left(S\right)=\begin{vmatrix}1 & 1 & 1\\
+7 & 3 & 1\\
+5 & 10 & 1
+\end{vmatrix}$
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{align*}
+\det\left(S\right) & =1\begin{vmatrix}3 & 1\\
+10 & 1
+\end{vmatrix}-1\begin{vmatrix}7 & 1\\
+5 & 1
+\end{vmatrix}+1\begin{vmatrix}7 & 3\\
+5 & 10
+\end{vmatrix}\\
+ & =\left(3-10\right)-\left(7-5\right)+\left(70-15\right)\\
+ & =46
+\end{align*}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+Para calcular el determinante asociado a la variable 
+\begin_inset Formula $C$
+\end_inset
+
+,
+ sustituimos la columna de sus coeficientes en la matriz del sistema por el vector de términos independientes,
+ manteniendo las demás columnas intactas.
+ 
+\begin_inset Formula 
+\[
+\det\left(C\right)=\begin{vmatrix}\boldsymbol{-2} & 1 & 1\\
+\boldsymbol{-58} & 3 & 1\\
+\boldsymbol{-125} & 10 & 1
+\end{vmatrix}
+\]
+
+\end_inset
+
+ entonces 
+\begin_inset Formula 
+\begin{align*}
+\det\left(C\right) & =-2\begin{vmatrix}3 & 1\\
+10 & 1
+\end{vmatrix}-1\begin{vmatrix}-58 & 1\\
+-125 & 1
+\end{vmatrix}+1\begin{vmatrix}-58 & 3\\
+-125 & 10
+\end{vmatrix}\\
+ & =-2\left(3-10\right)-\left(-58+125\right)+\left(-580+375\right)\\
+ & =-258
+\end{align*}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+Para calcular el determinante asociado a la variable 
+\begin_inset Formula $D$
+\end_inset
+
+,
+ sustituimos la columna de sus coeficientes en la matriz del sistema por el vector de términos independientes,
+ manteniendo las demás columnas intactas.
+ 
+\begin_inset Formula 
+\[
+\det\left(C\right)=\begin{vmatrix}1 & \boldsymbol{-2} & 1\\
+7 & \boldsymbol{-58} & 1\\
+5 & \boldsymbol{-125} & 1
+\end{vmatrix}
+\]
+
+\end_inset
+
+ entonces 
+\begin_inset Formula 
+\begin{align*}
+\det\left(D\right) & =1\begin{vmatrix}\boldsymbol{-58} & 1\\
+\boldsymbol{-125} & 1
+\end{vmatrix}+2\begin{vmatrix}7 & 1\\
+5 & 1
+\end{vmatrix}+1\begin{vmatrix}7 & \boldsymbol{-58}\\
+5 & \boldsymbol{-125}
+\end{vmatrix}\\
+ & =\left(-58+125\right)+2\left(7-5\right)+\left(-875+290\right)\\
+ & =-514
+\end{align*}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+Para calcular el determinante asociado a la variable 
+\begin_inset Formula $E$
+\end_inset
+
+,
+ sustituimos la columna de sus coeficientes en la matriz del sistema por el vector de términos independientes,
+ manteniendo las demás columnas intactas.
+ 
+\begin_inset Formula 
+\[
+\det\left(E\right)=\begin{vmatrix}1 & 1 & \boldsymbol{-2}\\
+7 & 3 & \boldsymbol{-58}\\
+5 & 10 & \boldsymbol{-125}
+\end{vmatrix}
+\]
+
+\end_inset
+
+ entonces 
+\begin_inset Formula 
+\begin{align*}
+\det\left(E\right) & =1\begin{vmatrix}3 & \boldsymbol{-58}\\
+10 & \boldsymbol{-125}
+\end{vmatrix}-1\begin{vmatrix}7 & \boldsymbol{-58}\\
+5 & \boldsymbol{-125}
+\end{vmatrix}-2\begin{vmatrix}7 & 3\\
+5 & 10
+\end{vmatrix}\\
+ & =\left(-375+580\right)-\left(-875+290\right)-2\left(70-15\right)\\
+ & =680
+\end{align*}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Aplicando la regla de cramer encontramos la solución:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $C=\frac{\det\left(C\right)}{\det\left(S\right)}$
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{align*}
+C & =\frac{-258}{46}=-\frac{129}{23}\\
+ & \approx-5.61
+\end{align*}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $D=\frac{\det\left(D\right)}{\det\left(S\right)}$
+\end_inset
+
+ entonces,
+ 
+\begin_inset Formula 
+\begin{align*}
+D & =\frac{-514}{46}=-\frac{257}{23}\\
+ & \approx-11.17
+\end{align*}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $E=\frac{\det\left(E\right)}{\det\left(S\right)}$
+\end_inset
+
+ entonces,
+ 
+\begin_inset Formula 
+\begin{align*}
+E & =\frac{680}{46}=\frac{340}{23}\\
+ & \approx14.78
+\end{align*}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Con esto la ecuación general de la circunferencia es 
+\begin_inset Formula 
+\[
+x^{2}+y^{2}-\frac{129}{23}x-\frac{257}{23}y+\frac{340}{23}=0
+\]
+
+\end_inset
+
+ o aproximadamente 
+\begin_inset Formula 
+\[
+x^{2}+y^{2}-5.61x-11.17y+14.78=0
+\]
+
+\end_inset
+
+ De donde 
+\begin_inset Formula 
+\[
+h=-\frac{C}{2}
+\]
+
+\end_inset
+
+ es decir que 
+\begin_inset Formula 
+\begin{align*}
+h & =-\frac{-\frac{129}{23}}{2}\\
+h & =\frac{129}{46}\approx2.80
+\end{align*}
+
+\end_inset
+
+ Luego 
+\begin_inset Formula 
+\begin{align*}
+k & =-\frac{D}{2}\\
+k & =-\frac{-\frac{257}{23}}{2}\\
+k & =\frac{257}{46}\approx5.59
+\end{align*}
+
+\end_inset
+
+ y el radio lo podemos calcular con la fórmula encontrada en el apéndice 
+\begin_inset Formula 
+\begin{align*}
+r & =\frac{1}{2}\sqrt{C^{2}+D^{2}-4E}\\
+r & =\frac{1}{2}\sqrt{\left(-\frac{129}{23}\right)^{2}+\left(-\frac{257}{23}\right)^{2}-4\left(\frac{340}{23}\right)}\\
+r & =\frac{1}{2}\sqrt{\frac{51410}{529}}\\
+r & =\frac{1}{46}\sqrt{51410}\approx4.93
+\end{align*}
+
+\end_inset
+
+ o si necesitamos el radio al cuadrado 
+\begin_inset Formula 
+\begin{align*}
+r^{2} & =\frac{1}{4}\left(C^{2}+D^{2}-4E\right)\\
+ & =\frac{1}{4}\left[\left(-\frac{129}{23}\right)^{2}+\left(-\frac{257}{23}\right)^{2}-4\left(\frac{340}{23}\right)\right]\\
+ & =\frac{1}{4}\left(\frac{51410}{529}\right)=\frac{25705}{1058}\approx24.3
+\end{align*}
+
+\end_inset
+
+ Con una ecuación canónica 
+\begin_inset Formula 
+\[
+\left(x-\frac{129}{46}\right)^{2}+\left(y-\frac{257}{46}\right)^{2}=\frac{25705}{1058}
+\]
+
+\end_inset
+
+ o aproximadamente 
+\begin_inset Formula 
+\[
+\left(x-2.8\right)^{2}+\left(y-5.59\right)^{2}=4.93
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subseccion*
+Conclusión
+\end_layout
+
+\begin_layout Standard
+Hemos llevado dos procesos,
+ uno en el que tenemos todas las fracciones y raíces exactas y otro con las aproximaciones.
+ La realidad es que en el mundo matemático todo se prefiere con exactitud,
+ pero en la ingeniería y la ciencia básica se usan aproximaciones dependiendo los casos.
+ Como el ejemplo lo estamos trabajando en Kilómetros al usar tres cifras decimales estamos aproximando hasta los metros.
+ Por ejemplo 
+\begin_inset Formula $4.93$
+\end_inset
+
+ son kilómetros,
+ si quieremos metros multiplicamos por 
+\begin_inset Formula $1000$
+\end_inset
+
+ metros,
+ entonces tenemos 
+\begin_inset Formula $4930$
+\end_inset
+
+,
+ si hubiéramos aproximado a tres decimales el resultado sería 
+\begin_inset Formula $4929$
+\end_inset
+
+ lo que nos da un metro menos,
+ y esto en telecomunicaciones es precisión.
+\end_layout
+
+\begin_layout Seccion
+Comprobando el Resultado
+\end_layout
+
+\begin_layout Standard
+En los informes que presentamos sobre maquetas,
+ o diseños además de los resultados podemos comprobar el resultado mediante tecnología.
+ Para ello vamos a ingresar los tres puntos en Geogebra y mediante la herramienta de Circunferencia que pasa por tres puntos determinamos si la ecuación calculada es la correcta,
+ y mediante la herramineta de centro calculamos el centro de la circunferencia así como la medida del radio (distancia entre un punto y el centro).
+ En la siguiente figura tenemos una captura de pantalla de la aplicación Geogebra con la construcción.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement document
+alignment document
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Imagenes/Construccion_Geogebra.png
+	lyxscale 75
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Captura de Pantalla de la Construcción Realizada en Geogebra
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Capitulo
+\start_of_appendix
+Apuntes de Geometría Analítica
+\end_layout
+
+\begin_layout Seccion
+Ecuación Canónica de la Circunferencia
+\end_layout
+
+\begin_layout Standard
+Tenemos la siguiente ecuación,
+ que corresponde a la ecuación canónica de la circunferencia 
+\begin_inset Formula 
+\[
+\left(x-h\right)^{2}+\left(y-k\right)^{2}=r^{2}
+\]
+
+\end_inset
+
+ Desarrollando cuadrados tenemos 
+\begin_inset Formula 
+\begin{align*}
+x^{2}-2hx+h^{2}+y^{2}-2ky+k^{2} & =r^{2}\\
+x^{2}+y^{2}-2hx-2ky+h^{2}+k^{2}-r^{2} & =0
+\end{align*}
+
+\end_inset
+
+ Al comparar esta ecuación con la ecuación general de la circunferencia tenemos que si 
+\begin_inset Formula $C=-2h$
+\end_inset
+
+ entonces 
+\begin_inset Formula $h=-\frac{C}{2}$
+\end_inset
+
+,
+ 
+\begin_inset Formula $D=-2k$
+\end_inset
+
+,
+ entonces 
+\begin_inset Formula $k=-\frac{D}{2}$
+\end_inset
+
+ y 
+\begin_inset Formula $E=h^{2}+k^{2}-r^{2}$
+\end_inset
+
+ entonces 
+\begin_inset Formula 
+\[
+r^{2}=h^{2}+k^{2}-E
+\]
+
+\end_inset
+
+ Sabiendo que 
+\begin_inset Formula $h=-\frac{C}{2}$
+\end_inset
+
+ y 
+\begin_inset Formula $k=-\frac{D}{2}$
+\end_inset
+
+ entonces 
+\begin_inset Formula 
+\begin{align*}
+r^{2} & =\left(-\frac{C}{2}\right)^{2}+\left(-\frac{D}{2}\right)^{2}-E\\
+r^{2} & =\frac{C^{2}}{4}+\frac{D^{2}}{4}-\frac{4E}{4}\\
+r & =\sqrt{\frac{1}{4}\left(C^{2}+D^{2}-4E\right)}\\
+r & =\frac{1}{2}\sqrt{C^{2}+D^{2}-4E}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
