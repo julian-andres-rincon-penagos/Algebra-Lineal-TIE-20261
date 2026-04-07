@@ -1,0 +1,486 @@
+#LyX 2.4 created this file. For more info see https://www.lyx.org/
+\lyxformat 620
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass Plantilla
+\begin_preamble
+\usepackage{Plantilla}
+\end_preamble
+\use_default_options true
+\begin_modules
+multicol
+\end_modules
+\maintain_unincluded_children no
+\language spanish
+\language_package default
+\inputencoding auto-legacy
+\fontencoding auto
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_roman_osf false
+\font_sans_osf false
+\font_typewriter_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement H
+\float_alignment class
+\paperfontsize 12
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize custom
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_formatted_ref 0
+\use_minted 0
+\use_lineno 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\paperwidth 30cm
+\paperheight 39cm
+\leftmargin 3cm
+\topmargin 5cm
+\rightmargin 3cm
+\bottommargin 3cm
+\secnumdepth 5
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tablestyle default
+\bullet 0 2 1 -1
+\bullet 1 2 14 -1
+\bullet 2 2 16 -1
+\bullet 3 2 34 -1
+\tracking_changes false
+\output_changes false
+\change_bars false
+\postpone_fragile_content false
+\html_math_output 3
+\html_css_as_file 0
+\html_be_strict false
+\docbook_table_output 0
+\docbook_mathml_prefix 1
+\end_header
+
+\begin_body
+
+\begin_layout Titulo
+Área de un Triángulo
+\end_layout
+
+\begin_layout Autores
+Julián Andrés Rincón Penagos
+\end_layout
+
+\begin_layout AutoresCorto
+Julián Andrés Rincón Penagos
+\end_layout
+
+\begin_layout Correo
+jarinconapps@gmail.com
+\end_layout
+
+\begin_layout Materia
+Álgebra Lineal
+\end_layout
+
+\begin_layout Institucion
+Universidad del Quindío
+\end_layout
+
+\begin_layout Fecha
+2026
+\end_layout
+
+\begin_layout TipoCapitulo
+Clase
+\end_layout
+
+\begin_layout NumeroArticulo
+9
+\end_layout
+
+\begin_layout Capitulo
+Matrices Reducibles
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{bmatrix}a & b & c & d\\
+e & f & g & h\\
+i & j & k & l\\
+m & n & o & p
+\end{bmatrix}
+\]
+
+\end_inset
+
+ Dividimos la fila 1 entre 
+\begin_inset Formula $a$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\begin{bmatrix}1 & \frac{b}{a} & \frac{c}{a} & \frac{d}{a}\\
+e & f & g & h\\
+i & j & k & l\\
+m & n & o & p
+\end{bmatrix}
+\]
+
+\end_inset
+
+ si consideramos 
+\begin_inset Formula $t_{1}=\frac{b}{a}$
+\end_inset
+
+,
+ 
+\begin_inset Formula $t_{2}=\frac{c}{a}$
+\end_inset
+
+ y 
+\begin_inset Formula $t_{3}=\frac{d}{a}$
+\end_inset
+
+ entonces 
+\begin_inset Formula 
+\[
+\begin{bmatrix}1 & t_{1} & t_{2} & t_{3}\\
+e & f & g & h\\
+i & j & k & l\\
+m & n & o & p
+\end{bmatrix}
+\]
+
+\end_inset
+
+ Multiplicamos la fila 1 por 
+\begin_inset Formula $-e$
+\end_inset
+
+ y la sumamos con la fila 
+\begin_inset Formula $2$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\begin{bmatrix}-e & -et_{1} & -et_{2} & -et_{3}\\
+e & f & g & h
+\end{bmatrix}
+\]
+
+\end_inset
+
+ el resultado es 
+\begin_inset Formula 
+\[
+\begin{bmatrix}0 & f-et_{1} & g-et_{2} & h-et_{3}\end{bmatrix}
+\]
+
+\end_inset
+
+ Multiplicamos la fila 1 por 
+\begin_inset Formula $-i$
+\end_inset
+
+ y la sumamos con la fila 
+\begin_inset Formula $3$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\begin{bmatrix}-i & -it_{1} & -it_{2} & -it_{3}\\
+i & j & k & l
+\end{bmatrix}
+\]
+
+\end_inset
+
+ el resultado es 
+\begin_inset Formula 
+\[
+\begin{bmatrix}0 & j-it_{1} & k-it_{2} & l-it_{3}\end{bmatrix}
+\]
+
+\end_inset
+
+ Multiplicamos la fila 
+\begin_inset Formula $1$
+\end_inset
+
+ por 
+\begin_inset Formula $-m$
+\end_inset
+
+ y lo sumamos con la fila 
+\begin_inset Formula $4$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\begin{bmatrix}-m & -mt_{1} & -mt_{2} & -mt_{3}\\
+m & n & o & p
+\end{bmatrix}
+\]
+
+\end_inset
+
+ el resultado es 
+\begin_inset Formula 
+\[
+\begin{bmatrix}0 & n-mt_{1} & o-mt_{2} & p-mt_{3}\end{bmatrix}
+\]
+
+\end_inset
+
+ La matriz con el primer proceso de eliminación es 
+\begin_inset Formula 
+\[
+\begin{bmatrix}1 & t_{1} & t_{2} & t_{3}\\
+0 & f-et_{1} & g-et_{2} & h-et_{3}\\
+0 & j-it_{1} & k-it_{2} & l-it_{3}\\
+0 & n-mt_{1} & o-mt_{2} & p-mt_{3}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ Dividimos la fila 
+\begin_inset Formula $2$
+\end_inset
+
+ entre 
+\begin_inset Formula $f-et_{1}$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\begin{bmatrix}1 & t_{1} & t_{2} & t_{3}\\
+0 & 1 & \frac{g-et_{2}}{f-et_{1}} & \frac{h-et_{3}}{f-et_{1}}\\
+0 & j-it_{1} & k-it_{2} & l-it_{3}\\
+0 & n-mt_{1} & o-mt_{2} & p-mt_{3}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ Si hacemos 
+\begin_inset Formula $s_{1}=\frac{g-et_{2}}{f-et_{1}}$
+\end_inset
+
+,
+ 
+\begin_inset Formula $s_{2}=\frac{h-et_{3}}{f-et_{1}}$
+\end_inset
+
+ entonces la matriz se transforma en 
+\begin_inset Formula 
+\[
+\begin{bmatrix}1 & t_{1} & t_{2} & t_{3}\\
+0 & 1 & s_{1} & s_{2}\\
+0 & j-it_{1} & k-it_{2} & l-it_{3}\\
+0 & n-mt_{1} & o-mt_{2} & p-mt_{3}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ Multiplicamos la fila 
+\begin_inset Formula $2$
+\end_inset
+
+ por 
+\begin_inset Formula $-\left(j-it_{1}\right)$
+\end_inset
+
+ y lo sumamos con la fila 
+\begin_inset Formula $3$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\begin{bmatrix}0 & -\left(j-it_{1}\right) & -\left(j-it_{1}\right)s_{1} & -\left(j-it_{1}\right)s_{2}\\
+0 & j-it_{1} & k-it_{2} & l-it_{3}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ el resultado es 
+\begin_inset Formula 
+\[
+\begin{bmatrix}0 & 0 & k-it_{2}-\left(j-it_{1}\right)s_{1} & l-it_{3}-\left(j-it_{1}\right)s_{2}\end{bmatrix}
+\]
+
+\end_inset
+
+ Multiplicamos la fila 
+\begin_inset Formula $2$
+\end_inset
+
+ por 
+\begin_inset Formula $-\left(n-mt_{1}\right)$
+\end_inset
+
+ y lo sumamos con la fila 
+\begin_inset Formula $4$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\begin{bmatrix}0 & -\left(n-mt_{1}\right) & -\left(n-mt_{1}\right)s_{1} & -\left(n-mt_{1}\right)s_{2}\\
+0 & n-mt_{1} & o-mt_{2} & p-mt_{3}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ el resultado es 
+\begin_inset Formula 
+\[
+\begin{bmatrix}0 & 0 & o-mt_{2}-\left(n-mt_{1}\right)s_{1} & p-mt_{3}-\left(n-mt_{1}\right)s_{2}\end{bmatrix}
+\]
+
+\end_inset
+
+ La matriz de la transformación 2 es 
+\begin_inset Formula 
+\[
+\begin{bmatrix}1 & t_{1} & t_{2} & t_{3}\\
+0 & 1 & s_{1} & s_{2}\\
+0 & 0 & k-it_{2}-\left(j-it_{1}\right)s_{1} & l-it_{3}-\left(j-it_{1}\right)s_{2}\\
+0 & 0 & o-mt_{2}-\left(n-mt_{1}\right)s_{1} & p-mt_{3}-\left(n-mt_{1}\right)s_{2}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ Si dividimos la fila 
+\begin_inset Formula $3$
+\end_inset
+
+ entre 
+\begin_inset Formula $k-it_{2}-\left(j-it_{1}\right)s_{1}$
+\end_inset
+
+ tenemos 
+\begin_inset Formula 
+\[
+\begin{bmatrix}1 & t_{1} & t_{2} & t_{3}\\
+0 & 1 & s_{1} & s_{2}\\
+0 & 0 & 1 & \frac{l-it_{3}-\left(j-it_{1}\right)s_{2}}{k-it_{2}-\left(j-it_{1}\right)s_{1}}\\
+0 & 0 & o-mt_{2}-\left(n-mt_{1}\right)s_{1} & p-mt_{3}-\left(n-mt_{1}\right)s_{2}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ Si hacemos 
+\begin_inset Formula $r_{1}=\frac{l-it_{3}-\left(j-it_{1}\right)s_{2}}{k-it_{2}-\left(j-it_{1}\right)s_{1}}$
+\end_inset
+
+ tenemos la siguiente matriz 
+\begin_inset Formula 
+\[
+\begin{bmatrix}1 & t_{1} & t_{2} & t_{3}\\
+0 & 1 & s_{1} & s_{2}\\
+0 & 0 & 1 & r_{1}\\
+0 & 0 & o-mt_{2}-\left(n-mt_{1}\right)s_{1} & p-mt_{3}-\left(n-mt_{1}\right)s_{2}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ Multiplicamos la fila 
+\begin_inset Formula $3$
+\end_inset
+
+ por 
+\begin_inset Formula $-\left(-mt_{2}-\left(n-mt_{1}\right)s_{1}\right)$
+\end_inset
+
+ y lo sumamos con la fila 
+\begin_inset Formula $4$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\begin{bmatrix}0 & 0 & -\left(-mt_{2}-\left(n-mt_{1}\right)s_{1}\right) & -\left(-mt_{2}-\left(n-mt_{1}\right)s_{1}\right)r_{1}\\
+0 & 0 & o-mt_{2}-\left(n-mt_{1}\right)s_{1} & p-mt_{3}-\left(n-mt_{1}\right)s_{2}
+\end{bmatrix}
+\]
+
+\end_inset
+
+el resultado es 
+\begin_inset Formula 
+\[
+\begin{bmatrix}0 & 0 & 0 & p-mt_{3}-\left(n-mt_{1}\right)s_{2}-\left(-mt_{2}-\left(n-mt_{1}\right)s_{1}\right)r_{1}\end{bmatrix}
+\]
+
+\end_inset
+
+ 
+\end_layout
+
+\end_body
+\end_document
